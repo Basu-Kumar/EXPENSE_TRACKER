@@ -1,8 +1,7 @@
 const mongoose = require("mongoose");
 
 const userDashboard = async (req, res) => {
-  // passed by middleware(apne niche walo ko)
-  //console.log(req.user); it helps in identifying the user and show dashboard accordingly
+  // passed by middleware(to protected routes)   : (req.user)
 
   const usersModel = mongoose.model("users");
   const transactionsModel = mongoose.model("transactions");
@@ -25,7 +24,7 @@ const userDashboard = async (req, res) => {
   res.status(200).json({
     status: "success",
     data: getUser,
-    transactions: transactions, // we can simply write transactions when left=right
+    transactions: transactions,
   });
 };
 

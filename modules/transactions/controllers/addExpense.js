@@ -28,20 +28,19 @@ const addExpense = async (req, res) => {
   }
 
   await transactionsModel.create({
-    user_id: req.user._id, // we get user id from auth jwt payload
+    user_id: req.user._id,
     amount: amount,
     transaction_type: "expense",
     remarks: remarks,
   });
 
-  //   updating the users balance after an income
   await usersModel.updateOne(
     {
-      _id: req.user._id, // identifying the user using payload from auth
+      _id: req.user._id,
     },
     {
       $inc: {
-        balance: amount * -1, // decreasing the balance amount
+        balance: amount * -1,
       },
     },
     {

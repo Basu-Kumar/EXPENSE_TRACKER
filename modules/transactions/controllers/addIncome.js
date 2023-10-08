@@ -24,20 +24,19 @@ const addIncome = async (req, res) => {
   }
 
   await transactionsModel.create({
-    user_id: req.user._id, // we get user id from auth jwt payload
+    user_id: req.user._id,
     amount: amount,
     transaction_type: "income",
     remarks: remarks,
   });
 
-  //   updating the users balance after an income
   await usersModel.updateOne(
     {
-      _id: req.user._id, // identifying the user using payload from auth
+      _id: req.user._id,
     },
     {
       $inc: {
-        balance: amount, // increasng the balanvce amount
+        balance: amount,
       },
     },
     {

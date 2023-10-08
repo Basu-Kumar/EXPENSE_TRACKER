@@ -11,13 +11,10 @@ const deleteTransaction = async (req, res) => {
     return res.status(400).json("transaction_id not provided");
   }
 
-  // using validator to validate the transaction id
-
   if (!validator.isMongoId(transaction_id.toString())) {
     return res.status(400).json({ Error: "please provide a valid id" });
   }
 
-  // getting the transaction using the id
   const getTransaction = await transactionsModel.findOne({
     _id: transaction_id,
   });

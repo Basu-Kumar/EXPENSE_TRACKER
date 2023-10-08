@@ -5,7 +5,6 @@ const emailManager = require("../../../managers/emailManager");
 const resetPassword = async (req, res) => {
   const usersModel = mongoose.model("users");
 
-  // taking useful payload from user
   const { email, new_password, reset_code } = req.body;
 
   if (!email) {
@@ -24,21 +23,17 @@ const resetPassword = async (req, res) => {
     res.status(400).json("new_password is too short");
   }
 
-  // getting the user
   const getUser = await usersModel.findOne({
     email: email,
     reset_code: reset_code,
   });
 
-  // if the user doesn't exist
   if (!getUser) {
     res.status(400).json("the reset code doesn't match");
   }
 
-  // hashing the new password
   const hashedPassword = await bcrypt.hash(new_password, 12);
 
-  // updating the new password to users database
   await usersModel.updateOne(
     {
       email: email,
@@ -58,8 +53,6 @@ const resetPassword = async (req, res) => {
     "<p>code reset successfull</p>",
     "success message"
   );
-
-  // sending an email that password reset is successful
 
   res.status(200).json({
     status: "success",

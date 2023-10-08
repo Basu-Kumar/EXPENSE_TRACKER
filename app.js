@@ -20,16 +20,11 @@ mongoose
     console.log("connection to mongoDB failed");
   });
 
-// model initialisation
 require("./models/user.model");
 require("./models/transactions.model");
 
-//user routes:if a request is made for localhost 8000/api/users then redirect it to userRoutes
-// that is all will be handled by this userRoutes
 app.use("/api/users", userRoutes); // importing router from express app.use()...
 app.use("/api/transactions", transactionRoutes);
-
-// at the end of all routes importing error handler
 
 app.all("*", () => {
   // any route that doesn't lie above
